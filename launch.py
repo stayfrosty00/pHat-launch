@@ -20,11 +20,6 @@ color = args.color
 inky_display = InkyPHAT(color)
 inky_display.set_border(inky_display.BLACK)
 
-
-
-fontsize = 16
-font = ImageFont.truetype("/home/pi/.fonts/Amble-Regular.ttf", fontsize)
-
 #Scrapes SpaceFlightNow.com's launch schedule. (Thank you)
 res = requests.get("https://spaceflightnow.com/launch-schedule/")
 if res.status_code == 200:
@@ -45,7 +40,7 @@ else:
 
 #Loads the background and prints the text on top
 fontsize = 16
-font = ImageFont.truetype("/home/pi/.fonts/Amble-Regular.ttf", fontsize)
+font = ImageFont.truetype("resources/Amble-Regular.ttf", fontsize)
 
 img = Image.open("resources/launchbackground.png")
 draw = ImageDraw.Draw(img)
