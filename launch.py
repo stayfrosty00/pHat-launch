@@ -12,6 +12,7 @@ try:
 	from bs4 import BeautifulSoup
 except ImportError:
 	exit("This script requires the bs4 module\nInstall with: sudo pip install beautifulsoup4")
+
 #sets up inky pHat
 parser = argparse.ArgumentParser()
 parser.add_argument('--color', '-c', type=str, required=True, choices=["red", "black", "yellow"], help="ePaper display color")
