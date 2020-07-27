@@ -14,6 +14,7 @@ try:
 	from bs4 import BeautifulSoup
 except ImportError:
 	exit("This script requires the bs4 module\nInstall with: sudo pip install beautifulsoup4")
+
 #sets up inky pHat
 parser = argparse.ArgumentParser()
 parser.add_argument('--color', '-c', type=str, required=True, choices=["red", "black", "yellow"], help="ePaper display color")
@@ -26,16 +27,19 @@ inky_display.set_border(inky_display.BLACK)
 res = requests.get("https://spaceflightnow.com/launch-schedule/")
 if res.status_code == 200:
 	soup = BeautifulSoup(res.content, "lxml")
-	mission = (soup.find("span", "mission").text)
+	mission_rocket = (soup.find("span", "mission").text)
 	launchdate = (soup.find("span", "launchdate").text)
 	launchtimetemp = soup.find("div", "missiondata").get_text()
 	timeonly = launchtimetemp.split("(")[1].split("EDT")[0]
 	launchsite = launchtimetemp.split("site: ")[1]
+	mission = mission_rocket.split("• ")[1]
+	rocket = mission_rocket.split(" •")[0]
 else:
 	exit("website did not load")
 
 #These print states are used for debugging
 #print(mission)
+#print(rocket)
 #print(launchdate)
 #print(timeonly)
 #print(launchsite)
@@ -47,8 +51,8 @@ font = ImageFont.truetype("resources/Amble-Regular.ttf", fontsize)
 img = Image.open("resources/launchbackground.png")
 draw = ImageDraw.Draw(img)
 
-draw.text((2, 2), "Next Launch", inky_display.WHITE, font)
-draw.text((2, 25), mission, inky_display.BLACK, font)
+draw.text((2, 2), "Next Launch: " + rocket, inky_display.WHITE, font)
+draw.text((2, 26), mission, inky_display.BLACK, font)
 draw.text((2, 52), launchdate + " @ " + timeonly, inky_display.BLACK, font)
 draw.text((2, 78), launchsite, inky_display.BLACK, font)
 
