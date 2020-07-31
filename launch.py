@@ -61,8 +61,8 @@ def draw_data(i):
 		draw.text((2, 52), get_data(".launchdate",i) + " @ " + "TBD", inky_display.BLACK, font)
 	draw.text((2, 78), get_data(".missiondata",i).split("site: ")[1], inky_display.BLACK, font)
 
-for b in range(5):
-	"""Calls on functions to get data and draw image, then sends image to the Inky pHat"""
+for b in range(1):
+	"""Calls on functions to get data and draw image, then sends image to the Inky pHat. Range determines how many launches to cycle through"""
 	img = Image.open("resources/launchbackground.png")
 	draw = ImageDraw.Draw(img)
 	draw_data(b)
